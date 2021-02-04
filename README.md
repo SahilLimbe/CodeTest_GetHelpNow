@@ -6,6 +6,16 @@
 
 A Flutter application for CodeTest at GetHelpNow.
 
+# Features
+
+  - Has a Splash Screen
+  - Homepage contains a list of users
+  - Speed dial functionality used in floating button
+  - For selecting date and date-range, respective kinds of calendars are opened
+  - Can use photos from gallery
+  - Hive database used for local storage
+  - Can export records in a particular Date Range to CSV
+
 # Installation
 
 ```

@@ -65,8 +65,6 @@ class _AddUserFormState extends State<AddUserForm> {
   String amount;
   String imgPath;
 
-  // File demoBg =
-  //     File('/data/user/0/com.sahillimbe.code_test_flutter/app_flutter/sahil');
   final picker = ImagePicker();
 
   Future getImage() async {

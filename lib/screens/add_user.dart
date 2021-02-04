@@ -83,7 +83,7 @@ class _AddUserFormState extends State<AddUserForm> {
   }
 
   Future saveImage() async {
-    Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    Directory appDocumentsDirectory = await getExternalStorageDirectory();
     String path = appDocumentsDirectory.path;
     debugPrint('$path/$imageTitle');
     imgPath = '$path/$imageTitle';

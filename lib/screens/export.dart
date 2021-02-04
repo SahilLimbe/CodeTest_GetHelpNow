@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Export extends StatefulWidget {
   @override
@@ -17,6 +19,12 @@ class _ExportState extends State<Export> {
   void initState() {
     super.initState();
     usersBox = Hive.box('usersBox');
+    getPath();
+  }
+
+  Directory directory;
+  getPath() async {
+    directory = await getExternalStorageDirectory();
   }
 
   dateTimeRangePicker() async {
@@ -105,7 +113,39 @@ class _ExportState extends State<Export> {
                 Center(
                   child: RaisedButton(
                     onPressed: () {
-                      debugPrint('Does not work yet');
+                      // debugPrint('Does not work yet');
+                      final File file = File('${directory.path}/my_file.csv');
+                      print(directory.path);
+
+                      Map user;
+                      String text =
+                          'NAME, MOBILE, PRODUCTTYPE, AMOUNTTYPE, AMOUNT, DATE \n';
+                      for (int i = 0; i < selectedIndexes.length; i++) {
+                        user = jsonDecode(usersBox.getAt(selectedIndexes[i]));
+                        text = text +
+                            user['name'] +
+                            "," +
+                            user['mobile'] +
+                            "," +
+                            user['productType'] +
+                            "," +
+                            user['amountType'] +
+                            "," +
+                            user['amount'].toString() +
+                            "," +
+                            user['date'] +
+                            "\n";
+                        file.writeAsString(text);
+                      }
+                      print('CSV file created');
+                      return Fluttertoast.showToast(
+                          msg: "CSV file created successfully",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 2,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     },
                     child: Text("Export"),
                   ),

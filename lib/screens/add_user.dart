@@ -58,7 +58,6 @@ class _AddUserFormState extends State<AddUserForm> {
   bool dateError = false;
   File _image;
   bool imageError = false;
-  File _storedImage;
   String imageTitle;
   String name;
   String mobile;
@@ -85,7 +84,7 @@ class _AddUserFormState extends State<AddUserForm> {
     String path = appDocumentsDirectory.path;
     debugPrint('$path/$imageTitle');
     imgPath = '$path/$imageTitle';
-    _storedImage = await _image.copy('$path/$imageTitle');
+    File _storedImage = await _image.copy('$path/$imageTitle');
   }
 
   @override

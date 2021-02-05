@@ -139,10 +139,11 @@ class _ExportState extends State<Export> {
                       }
                       print('CSV file created');
                       return Fluttertoast.showToast(
-                          msg: "CSV file created successfully",
+                          msg:
+                              "CSV file created at \n '${directory.path}/my_file.csv'",
                           toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 2,
+                          timeInSecForIosWeb: 10,
                           backgroundColor: Colors.black,
                           textColor: Colors.white,
                           fontSize: 16.0);

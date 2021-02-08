@@ -105,67 +105,79 @@ class _ExportState extends State<Export> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            padding: EdgeInsets.only(bottom: 20),
+            child: Column(
               children: [
-                Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      dateTimeRangePicker();
-                    },
-                    child: Text("Select a Date Range"),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Center(
+                    child: RaisedButton(
+                      onPressed: () {
+                        dateTimeRangePicker();
+                      },
+                      child: Text("Select a Date Range"),
+                    ),
                   ),
                 ),
-                Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      final File file = File('${directory.path}/my_file.csv');
-                      print(directory.path);
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: RaisedButton(
+                        onPressed: () {
+                          final File file =
+                              File('${directory.path}/my_file.csv');
+                          print(directory.path);
 
-                      Map user;
-                      String text =
-                          'NAME, MOBILE, PRODUCTTYPE, AMOUNTTYPE, AMOUNT, DATE \n';
-                      for (int i = 0; i < selectedIndexes.length; i++) {
-                        user = jsonDecode(usersBox.getAt(selectedIndexes[i]));
-                        text = text +
-                            user['name'] +
-                            "," +
-                            user['mobile'] +
-                            "," +
-                            user['productType'] +
-                            "," +
-                            user['amountType'] +
-                            "," +
-                            user['amount'].toString() +
-                            "," +
-                            user['date'] +
-                            "\n";
-                        file.writeAsString(text);
-                      }
-                      print('CSV file created');
-                      return Fluttertoast.showToast(
-                          msg:
-                              "CSV file created at \n '${directory.path}/my_file.csv'",
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 10,
-                          backgroundColor: Colors.black,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    },
-                    child: Text("Export"),
-                  ),
-                ),
-                Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        selectedIndexes.clear();
-                      });
-                    },
-                    child: Text("Clear"),
-                  ),
+                          Map user;
+                          String text =
+                              'NAME, MOBILE, PRODUCTTYPE, AMOUNTTYPE, AMOUNT, DATE \n';
+                          for (int i = 0; i < selectedIndexes.length; i++) {
+                            user =
+                                jsonDecode(usersBox.getAt(selectedIndexes[i]));
+                            text = text +
+                                user['name'] +
+                                "," +
+                                user['mobile'] +
+                                "," +
+                                user['productType'] +
+                                "," +
+                                user['amountType'] +
+                                "," +
+                                user['amount'].toString() +
+                                "," +
+                                user['date'] +
+                                "\n";
+                            file.writeAsString(text);
+                          }
+                          print('CSV file created');
+                          return Fluttertoast.showToast(
+                              msg:
+                                  "CSV file created at \n '${directory.path}/my_file.csv'",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 10,
+                              backgroundColor: Colors.black,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        },
+                        child: Text("Export"),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Center(
+                      child: RaisedButton(
+                        onPressed: () {
+                          setState(() {
+                            selectedIndexes.clear();
+                          });
+                        },
+                        child: Text("Clear"),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

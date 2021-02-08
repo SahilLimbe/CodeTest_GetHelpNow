@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class User {
   final String imgPath;
   final String name;

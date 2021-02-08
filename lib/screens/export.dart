@@ -28,9 +28,11 @@ class _ExportState extends State<Export> {
   }
 
   dateTimeRangePicker() async {
-    setState(() {
-      selectedIndexes.clear();
-    });
+    setState(
+      () {
+        selectedIndexes.clear();
+      },
+    );
 
     DateTimeRange picked = await showDateRangePicker(
       context: context,
@@ -48,9 +50,11 @@ class _ExportState extends State<Export> {
       var date = DateTime.parse(user['date']);
       if (picked.start.isBefore(date) && picked.end.isAfter(date)) {
         print('${user['name']} is in range');
-        setState(() {
-          selectedIndexes.add(i);
-        });
+        setState(
+          () {
+            selectedIndexes.add(i);
+          },
+        );
       }
     }
   }
@@ -67,35 +71,38 @@ class _ExportState extends State<Export> {
           Container(
             height: MediaQuery.of(context).size.height * 0.7,
             child: ListView.builder(
-                shrinkWrap: true,
-                itemCount:
-                    selectedIndexes.length == 0 ? 0 : selectedIndexes.length,
-                itemBuilder: (BuildContext context, int i) {
-                  Map user = jsonDecode(usersBox.getAt(selectedIndexes[i]));
-                  String titleText = '${user['name']} - ${user['mobile']}';
-                  DateTime date = DateTime.parse(user['date']);
-                  var _image;
-                  if (user['imgPath'] != '') {
-                    _image = File(user['imgPath']);
-                  }
-                  return ListTile(
-                    leading: CircleAvatar(
-                      radius: 25,
-                      child: _image == null
-                          ? null
-                          : ClipOval(
-                              child: Image.file(
-                                _image,
-                                height: 60,
-                                width: 60,
-                              ),
-                            ),
-                    ),
-                    title: Text(titleText),
-                    subtitle: Text(DateFormat.yMMMd().format(date).toString()),
-                    trailing: Text('₹${user['amount'].toString()}'),
+              shrinkWrap: true,
+              itemCount:
+                  selectedIndexes.length == 0 ? 0 : selectedIndexes.length,
+              itemBuilder: (BuildContext context, int i) {
+                Map user = jsonDecode(usersBox.getAt(selectedIndexes[i]));
+                String titleText = '${user['name']} - ${user['mobile']}';
+                DateTime date = DateTime.parse(user['date']);
+                var _image;
+                if (user['imgPath'] != '') {
+                  _image = File(
+                    user['imgPath'],
                   );
-                }),
+                }
+                return ListTile(
+                  leading: CircleAvatar(
+                    radius: 25,
+                    child: _image == null
+                        ? null
+                        : ClipOval(
+                            child: Image.file(
+                              _image,
+                              height: 60,
+                              width: 60,
+                            ),
+                          ),
+                  ),
+                  title: Text(titleText),
+                  subtitle: Text(DateFormat.yMMMd().format(date).toString()),
+                  trailing: Text('₹${user['amount'].toString()}'),
+                );
+              },
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 40),
@@ -113,7 +120,6 @@ class _ExportState extends State<Export> {
                 Center(
                   child: RaisedButton(
                     onPressed: () {
-                      // debugPrint('Does not work yet');
                       final File file = File('${directory.path}/my_file.csv');
                       print(directory.path);
 
@@ -149,6 +155,16 @@ class _ExportState extends State<Export> {
                           fontSize: 16.0);
                     },
                     child: Text("Export"),
+                  ),
+                ),
+                Center(
+                  child: RaisedButton(
+                    onPressed: () {
+                      setState(() {
+                        selectedIndexes.clear();
+                      });
+                    },
+                    child: Text("Clear"),
                   ),
                 ),
               ],
